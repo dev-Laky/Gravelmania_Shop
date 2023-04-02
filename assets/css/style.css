@@ -410,6 +410,40 @@ h6 {
 }
 
 /*--------------------------------------------------------------
+# Gender Banner
+--------------------------------------------------------------*/
+
+#gender {
+  margin-top: 0rem;
+  padding: 0;
+}
+
+#gender .female-banner {
+  background-image: linear-gradient(45deg, #DC5F00, black, black);
+}
+
+#gender .female-banner:hover {
+  background-image: linear-gradient(45deg, var(--bs-success),  black);
+}
+
+#gender .male-banner {
+  background-image: linear-gradient(45deg, black, black, #DC5F00);
+  transition: transform .5s;
+}
+
+#gender .male-banner:hover {
+  background-image: linear-gradient(45deg, black, var(--bs-success));
+}
+
+#gender .female-banner:hover > .female-text {
+  transform: translateX(35%);
+}
+
+#gender .male-banner:hover > .male-text {
+  transform: translateX(-35%);
+}
+
+/*--------------------------------------------------------------
 # Products Section
 --------------------------------------------------------------*/
 
