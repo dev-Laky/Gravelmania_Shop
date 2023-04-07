@@ -30,13 +30,16 @@ export function check_for_localstorage() {
     }
 }
 
-export function add_product(id) {
+export function add_product(id, size, quantity) {
     valid_id(id).then(product => {
         check_for_localstorage();
 
         const shop_cart = localStorage.getItem('shop_cart');
         var shop_cart_json = JSON.parse(shop_cart);
         if (product != null) {
+            // add size and quantity 
+            product.size = size;
+            product.quantity = quantity;
             shop_cart_json["cart"].push(product);
         }
 
