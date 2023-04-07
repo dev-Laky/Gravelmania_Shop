@@ -5,7 +5,9 @@ import { add_product, del_product } from "/assets/js/cart/cart.js";
 
     // save current product to cart 
     document.querySelector('.formular-btn').addEventListener('click', (e) => {
-        add_product(1);
+        // get button id for product id
+        const buttonId = Number(e.target.id);
+        add_product(buttonId);
         window.location.href = '/checkout';
     });
 
