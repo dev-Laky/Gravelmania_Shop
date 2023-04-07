@@ -3,10 +3,9 @@ import { add_product, del_product } from "/assets/js/cart/cart.js";
 (function () {
     'use strict'
 
-    // save current product to cart 
-    document.querySelector('.formular-btn').addEventListener('click', (e) => {
+    function pre_save_data(event) {
         // get button id for product id
-        const buttonId = Number(e.target.id);
+        const buttonId = Number(event.target.id);
 
         // check which radio (size) is checked
         let size;
@@ -31,15 +30,22 @@ import { add_product, del_product } from "/assets/js/cart/cart.js";
         const quantity = Number(inputQuantity.value);
 
         add_product(buttonId, size, quantity);
-        /*window.location.href = '/checkout';*/
+    }
+
+    // save current product to cart 
+    document.querySelector('.add-cart-btn').addEventListener('click', (event) => {
+        pre_save_data(event);
+    });
+
+    // save current product to cart, go to checkout
+    document.querySelector('.formular-btn').addEventListener('click', (event) => {
+        pre_save_data(event);
+        window.location.href = '/checkout';
     });
 
     // avoid letter input to form-control --> quantity
-    // Get the input element by its ID
-    const inputQuantity = document.querySelector('#inputQuantity');
-
     // Add an event listener to the input field
-    inputQuantity.addEventListener('input', (event) => {
+    document.querySelector('#inputQuantity').addEventListener('input', (event) => {
         // Get the current input value
         const inputValue = event.target.value;
 
