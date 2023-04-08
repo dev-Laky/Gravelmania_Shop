@@ -6,6 +6,16 @@ import { update_cartCount } from "/assets/js/cart/cart.js";
   // initialize cart count
   update_cartCount();
 
+  /**
+   * uodate add-cart-btn once clicked
+   */
+  let buttons = document.getElementsByClassName("add-cart-btn");
+  for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", function () {
+      this.innerHTML = '<i class="icon bi-check-circle-fill me-1"></i> hinzugefügt';
+    });
+  }
+
   const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
   const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
