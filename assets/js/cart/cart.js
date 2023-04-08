@@ -39,8 +39,17 @@ export function get_cart_len() {
 
 export function update_cartCount() {
     let count = get_cart_len();
-    // Update the text content of the span to the desired number
+    // Update cartCount on nav button
     document.querySelector('#cartCount').textContent = count;
+    // if cartCount class exits also add value
+    let classElm = document.querySelectorAll('.cartCount');
+    if (classElm.length > 0) {
+        // elements exist
+        classElm.forEach(function (elm) {
+            elm.textContent = count;
+        });
+    }
+
 
 }
 
@@ -74,7 +83,7 @@ export function del_product(id) {
 
             const jsonData = JSON.stringify(shop_cart_obj);
             localStorage.setItem('shop_cart', jsonData);
-            
+
             update_cartCount();
             return;
         }

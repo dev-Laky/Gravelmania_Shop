@@ -2,19 +2,23 @@
     "products": [
         {
             "id": 1,
-            "name": "item_1"
+            "name": "item_1",
+            "price": 20
         },
         {
             "id": 2,
-            "name": "item_2"
+            "name": "item_2",
+            "price": 32
         },
         {
             "id": 3,
-            "name": "item_3"
+            "name": "item_3",
+            "price": 120
         },
         {
             "id": 4,
-            "name": "item_4"
+            "name": "item_4",
+            "price": 5
         }
 
     ]
