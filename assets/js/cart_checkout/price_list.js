@@ -1,4 +1,6 @@
-function calc_price(method="product") {
+import { get_prop_of_id } from "/assets/js/cart/cart.js";
+
+async function calc_price(method = "product") {
     let price = 0;
     // define shipping price
     const shippingPrice = 5;
@@ -6,15 +8,16 @@ function calc_price(method="product") {
     const cartData = JSON.parse(localStorage.getItem('shop_cart'));
 
     if (cartData && cartData.cart && cartData.cart.length > 0) {
-        cartData.cart.forEach(product => {
-            price += product.price;
-        });
+        const itemPrices = await Promise.all(cartData.cart.map(product => get_prop_of_id("price", product.id)));
+        price = itemPrices.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
         if (method === "total") {
             return price + shippingPrice;
         } else if (method === "product") {
+            
             return price;
         }
     } else {
+        // no products in cart --> price = 0
         return price;
     }
 }
@@ -27,15 +30,15 @@ export function render_priceList() {
     const cartData = JSON.parse(localStorage.getItem('shop_cart'));
 
     if (cartData && cartData.cart && cartData.cart.length > 0) {
-        cartData.cart.forEach(product => {
+        cartData.cart.forEach(async product => {
             const productLi = document.createElement('li');
             productLi.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'lh-condensed');
             productLi.innerHTML = `
           <div>
-            <h6 class="my-0">${product.name}</h6>
+            <h6 class="my-0">${(await get_prop_of_id("name", product.id))}</h6>
             <small class="text-muted">${product.quantity}x | Größe ${product.size}</small>
           </div>
-          <span class="text-muted">$${product.price.toFixed(2)}</span>
+          <span class="text-muted">$${(await get_prop_of_id("price", product.id)).toFixed(2)}</span>
         `;
             productsDiv.appendChild(productLi);
         });
@@ -54,8 +57,8 @@ export function render_priceList() {
     }
 }
 
-export function render_price_total() {
-    const totalPrice = calc_price("total");
+export async function render_price_total() {
+    const totalPrice = await calc_price("total");
     let classElm = document.querySelectorAll('.totalPrice');
     if (classElm.length > 0) {
         // elements exist
@@ -65,8 +68,8 @@ export function render_price_total() {
     }
 }
 
-export function render_price_product() {
-    const productPrice = calc_price("product");
+export async function render_price_product() {
+    const productPrice = await calc_price("product");
     let classElm = document.querySelectorAll('.productPrice');
     if (classElm.length > 0) {
         // elements exist
@@ -75,4 +78,3 @@ export function render_price_product() {
         });
     }
 }
-

@@ -1,15 +1,15 @@
 function valid_id(id) {
     return fetch('/assets/data/shop_products.json')
-        .then(response => response.json())
-        .then(shop_products => {
-            for (let i in shop_products.products) {
-                if (shop_products.products[i].id === id) {
-                    return shop_products.products[i];
-                }
-            }
-            throw new Error(`Id: ${id} doesn't exist.`);
-        })
-}
+      .then(response => response.json())
+      .then(shop_products => {
+        const product = shop_products.products.find(product => product.id === id);
+        if (product) {
+          return product;
+        } else {
+          throw new Error(`Id: ${id} doesn't exist.`);
+        }
+      });
+  }
 
 function create_localstorage() {
     const shop_cart = { "cart": [] };
@@ -89,4 +89,9 @@ export function del_product(id) {
         }
     }
     throw new Error(`Product with id: ${id} not found in cart.`);
+}
+
+// gets a property of a product via id --> secured query (no manipulation by localstorage)
+export async function get_prop_of_id(propertyName, id) {
+    return (await valid_id(id))[propertyName];
 }
