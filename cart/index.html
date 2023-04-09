@@ -150,8 +150,8 @@
                                         </div>
                                         <hr class="my-4">
 
-                                        <div id="cart-items"></div> <!-- JS Rendering -->
-
+                                            <div id="cart-items"></div> <!-- JS Rendering -->
+                                        
                                     </div>
                                 </div>
                                 <div class="col-lg-4 bg-grey">
@@ -161,10 +161,22 @@
 
                                         <div class="d-flex justify-content-between mb-4">
                                             <h5 class="text-uppercase"><span class="cartCount">0</span> Produkt(e)</h5>
-                                            <h5>€ <span class="totalPrice">0.00</span></h5>
+                                            <h5>€ <span class="productPrice">0.00</span></h5>
                                         </div>
 
+                                        <ul id="price-items" class="list-group mb-3"></ul> <!-- JS Rendering -->
+
                                         <ul class="list-group mb-3">
+                                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                                <div class="text-danger">
+                                                    <h6 class="my-0">Lieferkosten</h6>
+                                                    <small>Lieferservice</small>
+                                                </div>
+                                                <span class="text-danger">$5</span>
+                                            </li>
+                                        </ul>
+
+                                        <!-- <ul class="list-group mb-3">
                                             <li class="list-group-item d-flex justify-content-between lh-condensed">
                                                 <div>
                                                     <h6 class="my-0">Product name</h6>
@@ -193,7 +205,7 @@
                                                 </div>
                                                 <span class="text-success">-$5</span>
                                             </li>
-                                        </ul>
+                                        </ul> -->
 
                                         <hr class="my-4">
 
@@ -202,9 +214,9 @@
                                             <h5>€ <span class="totalPrice">0.00</span></h5>
                                         </div>
 
-                                        <a role="button" class="btn btn-success btn-block btn-lg"
+                                        <a role="button" class="btn btn-success btn-block btn-lg formular-btn"
                                             data-mdb-ripple-color="dark" style="width: 100%;"
-                                            href="/checkout">zur Formular</a>
+                                            href="/checkout">zum Formular</a>
 
                                     </div>
                                 </div>
@@ -308,6 +320,9 @@
 
     <!-- Shopping Cart JS File for Rendering -->
     <script type="module" src="/assets/js/cart/shopping_cart.js"></script>
+
+    <!-- Price List JS File for Rendering -->
+    <script type="module" src="/assets/js/cart_checkout/price_list.js"></script>
     
     <!-- Cart JS File for functions -->
     <script type="module" src="/assets/js/cart/cart.js"></script>

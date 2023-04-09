@@ -1,9 +1,20 @@
-import { del_product } from "/assets/js/cart/cart.js";
+import { del_product, get_cart_len } from "/assets/js/cart/cart.js";
+import { render_priceList, render_price_total, render_price_product } from "/assets/js/cart_checkout/price_list.js"
+
 (function () {
     "use strict";
 
-    // global total price
-    let totalPrice = 0;
+    // availability of "formular" (form) button 
+    function check_for_form_btn() {
+        const button = document.querySelector('.formular-btn');
+        let cartLen = get_cart_len();
+        console.log(cartLen);
+        if(cartLen > 0){
+            button.classList.remove("disabled");
+        } else {
+            button.classList.add("disabled");
+        }
+    }
 
     function render_products() {
 
@@ -14,9 +25,6 @@ import { del_product } from "/assets/js/cart/cart.js";
 
         if (cartData && cartData.cart && cartData.cart.length > 0) {
             cartData.cart.forEach(item => {
-                // sum up price
-                totalPrice += item.price;
-
                 const productDiv = document.createElement('div');
                 productDiv.classList.add('row', 'd-flex', 'justify-content-between', 'align-items-center');
                 productDiv.innerHTML = `
@@ -31,7 +39,7 @@ import { del_product } from "/assets/js/cart/cart.js";
           <h6 class="mb-0">${item.quantity} Mal</h6>
         </div>
         <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 offset-lg-1 mobile-shopping-cart-text">
-          <h6 class="mb-0">€ ${item.price}</h6>
+          <h6 class="mb-0">€ ${item.price.toFixed(2)}</h6>
         </div>
         <div class="col-12 col-sm-1 col-md-1 col-lg-1 col-xl-1 text-end">
           <button id="${item.id}" class="btn del-cart-btn"><i class="bi bi-trash text-danger"></i></button>
@@ -45,23 +53,16 @@ import { del_product } from "/assets/js/cart/cart.js";
         }
     }
 
-    function render_price() {
-        let classElm = document.querySelectorAll('.totalPrice');
-        if (classElm.length > 0) {
-            // elements exist
-            classElm.forEach(function (elm) {
-                elm.textContent = totalPrice.toFixed(2);
-            });
-        }
-    }
-
     function render() {
-        // reset total price on render
-        totalPrice = 0;
         // render products
         render_products();
+        // render products
+        render_priceList();
         // render price
-        render_price();
+        render_price_total();
+        render_price_product();
+        // check for form button
+        check_for_form_btn();
     }
 
     function get_del_btns() {

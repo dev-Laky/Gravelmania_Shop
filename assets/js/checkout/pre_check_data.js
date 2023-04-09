@@ -7,7 +7,6 @@ import { add_product, get_cart_len } from "/assets/js/cart/cart.js";
     function check_for_form_btn() {
         const button = document.querySelector('.formular-btn');
         let cartLen = get_cart_len();
-        console.log(cartLen);
         if(cartLen > 0){
             button.disabled = false;
         } else {
