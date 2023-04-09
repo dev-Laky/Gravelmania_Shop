@@ -2227,13 +2227,8 @@ section {
 }
 
 /*---------------------
- Shoppin cart
+ Shopping cart
 -----------------------*/
-@media (min-width: 1025px) {
-  .h-custom {
-      height: 100vh !important;
-  }
-}
 
 .bg-grey {
   background-color: #eae8e8;
@@ -2250,6 +2245,19 @@ section {
   .card-registration-2 .bg-grey {
       border-bottom-left-radius: 16px;
       border-bottom-right-radius: 16px;
+  }
+}
+
+@media (max-width: 580px) {
+  .mobile-shopping-cart-text {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .del-cart-btn {
+    width: 100%;
+    margin-top: 1.25rem;
+    background-color: #eae8e8;
   }
 }
 
