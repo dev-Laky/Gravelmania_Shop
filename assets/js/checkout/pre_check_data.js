@@ -1,7 +1,21 @@
-import { add_product, del_product } from "/assets/js/cart/cart.js";
+import { add_product, get_cart_len } from "/assets/js/cart/cart.js";
 
 (function () {
     'use strict'
+
+    // availability of "formular" (form) button 
+    function check_for_form_btn() {
+        const button = document.querySelector('.formular-btn');
+        let cartLen = get_cart_len();
+        console.log(cartLen);
+        if(cartLen > 0){
+            button.disabled = false;
+        } else {
+            button.disabled = true;
+        }
+    }
+
+    check_for_form_btn();
 
     function pre_save_data(event) {
         // get button id for product id
@@ -35,11 +49,13 @@ import { add_product, del_product } from "/assets/js/cart/cart.js";
     // save current product to cart 
     document.querySelector('.add-cart-btn').addEventListener('click', (event) => {
         pre_save_data(event);
+        // enable form-btn, but wait for cart length to change 
+        setTimeout(check_for_form_btn, 100);
     });
 
     // save current product to cart, go to checkout
     document.querySelector('.formular-btn').addEventListener('click', (event) => {
-        pre_save_data(event);
+        // pre_save_data(event);
         window.location.href = '/checkout';
     });
 
