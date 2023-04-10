@@ -76,7 +76,8 @@
                     </ul>
                   </li>-->
                     <li>
-                        <button class="card-btn btn btn-outline-warning rounded-5 ms-lg-4 m-lg-0 m-sm-3" type="submit">
+                        <button class="card-btn btn btn-outline-warning rounded-5 ms-lg-4 m-lg-0 m-sm-3" type="submit"
+                            onclick="window.location.href='/cart'">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span id="cartCount" class="badge bg-warning text-black ms-1 rounded-pill">0</span>
@@ -150,8 +151,8 @@
                                         </div>
                                         <hr class="my-4">
 
-                                            <div id="cart-items"></div> <!-- JS Rendering -->
-                                        
+                                        <div id="cart-items"></div> <!-- JS Rendering -->
+
                                     </div>
                                 </div>
                                 <div class="col-lg-4 bg-grey">
@@ -215,8 +216,8 @@
                                         </div>
 
                                         <a role="button" class="btn btn-success btn-block btn-lg formular-btn"
-                                            data-mdb-ripple-color="dark" style="width: 100%;"
-                                            href="/checkout">zum Formular</a>
+                                            data-mdb-ripple-color="dark" style="width: 100%;" href="/checkout">zum
+                                            Formular</a>
 
                                     </div>
                                 </div>
@@ -320,12 +321,6 @@
 
     <!-- Shopping Cart JS File for Rendering -->
     <script type="module" src="/assets/js/cart/shopping_cart.js"></script>
-
-    <!-- Price List JS File for Rendering -->
-    <script type="module" src="/assets/js/cart_checkout/price_list.js"></script>
-    
-    <!-- Cart JS File for functions -->
-    <script type="module" src="/assets/js/cart/cart.js"></script>
 
     <!-- Poppin JS File -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

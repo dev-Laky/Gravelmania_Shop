@@ -22,7 +22,7 @@ async function calc_price(method = "product") {
     }
 }
 
-export function render_priceList() {
+export async function render_priceList(method = "cart") {
     const productsDiv = document.getElementById('price-items');
     // clear previous content in the div (products) --> start new rendering
     productsDiv.innerHTML = "";
@@ -30,32 +30,58 @@ export function render_priceList() {
     const cartData = JSON.parse(localStorage.getItem('shop_cart'));
 
     if (cartData && cartData.cart && cartData.cart.length > 0) {
-        cartData.cart.forEach(async product => {
+        for (const product of cartData.cart) {
             const productLi = document.createElement('li');
             productLi.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'lh-condensed');
             productLi.innerHTML = `
-          <div>
-            <h6 class="my-0">${(await get_prop_of_id("name", product.id))}</h6>
-            <small class="text-muted">${product.quantity}x | Größe ${product.size}</small>
-          </div>
-          <span class="text-muted">$${(await get_prop_of_id("price", product.id)).toFixed(2)}</span>
-        `;
+                <div>
+                    <h6 class="my-0">${(await get_prop_of_id("name", product.id))}</h6>
+                    <small class="text-muted">${product.quantity}x | Größe ${product.size}</small>
+                </div>
+                <span class="text-muted">$${(await get_prop_of_id("price", product.id)).toFixed(2)}</span>
+            `;
             productsDiv.appendChild(productLi);
-        });
+        }
     } else {
         productsDiv.innerHTML = `
-        <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-                <div>
-                    <h6 class="my-0">Sieht leer aus...</h6>
-                    <small class="text-muted">Lass uns shoppen!</small>
-                </div>
-            </li>
-                                        
-        </ul>
+            <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Sieht leer aus...</h6>
+                        <small class="text-muted">Lass uns shoppen!</small>
+                    </div>
+                </li>
+            </ul>
         `;
     }
+
+    if (method == "checkout") {
+        const additionalItemsUl = document.createElement('ul');
+        additionalItemsUl.classList.add('list-group', 'mb-3');
+        additionalItemsUl.innerHTML = `
+            <li class="list-group-item d-flex justify-content-between bg-light">
+                <div class="text-danger">
+                    <h6 class="my-0">Lieferkosten</h6>
+                    <small>Lieferservice</small>
+                </div>
+                <span class="text-danger">$5</span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between">
+                <span>Total (USD)</span>
+                <strong>$${(await calc_price("total")).toFixed(2)}</strong>
+            </li>
+        `;
+        
+        const containerDiv = document.createElement('div');
+        containerDiv.appendChild(productsDiv.cloneNode(true));
+        containerDiv.appendChild(additionalItemsUl);
+        productsDiv.parentNode.replaceChild(containerDiv, productsDiv);
+    }
 }
+
+
+
 
 export async function render_price_total() {
     const totalPrice = await calc_price("total");
