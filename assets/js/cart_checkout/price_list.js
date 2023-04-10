@@ -43,7 +43,7 @@ export async function render_priceList(method = "cart") {
                     <h6 class="my-0">${(await get_prop_of_id("name", product.id))}</h6>
                     <small class="text-muted">${product.quantity}x | Größe ${product.size}</small>
                 </div>
-                <span class="text-muted">$${(await get_prop_of_id("price", product.id)*product.quantity).toFixed(2)}</span>
+                <span class="text-muted">${(await get_prop_of_id("price", product.id)*product.quantity).toFixed(2)} €</span>
             `;
             productsDiv.appendChild(productLi);
         }
@@ -69,12 +69,12 @@ export async function render_priceList(method = "cart") {
                     <h6 class="my-0">Lieferkosten</h6>
                     <small>Lieferservice</small>
                 </div>
-                <span class="text-danger">$5</span>
+                <span class="text-danger">5 €</span>
             </li>
 
             <li class="list-group-item d-flex justify-content-between">
-                <span>Total (USD)</span>
-                <strong>$${(await calc_price("total")).toFixed(2)}</strong>
+                <span>Gesamt (EUR)</span>
+                <strong>${(await calc_price("total")).toFixed(2)} €</strong>
             </li>
         `;
         
