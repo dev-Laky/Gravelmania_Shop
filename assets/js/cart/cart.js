@@ -1,15 +1,15 @@
 function valid_id(id) {
     return fetch('/assets/data/shop_products.json')
-      .then(response => response.json())
-      .then(shop_products => {
-        const product = shop_products.products.find(product => product.id === id);
-        if (product) {
-          return product;
-        } else {
-          throw new Error(`Id: ${id} doesn't exist.`);
-        }
-      });
-  }
+        .then(response => response.json())
+        .then(shop_products => {
+            const product = shop_products.products.find(product => product.id === id);
+            if (product) {
+                return product;
+            } else {
+                throw new Error(`Id: ${id} doesn't exist.`);
+            }
+        });
+}
 
 function create_localstorage() {
     const shop_cart = { "cart": [] };
@@ -37,16 +37,28 @@ export function get_cart_len() {
     return shop_cart_json["cart"].length;
 }
 
+function get_quantity_of_products() {
+    check_for_localstorage();
+    const shop_cart = localStorage.getItem('shop_cart');
+    var shop_cart_json = JSON.parse(shop_cart);
+    if (shop_cart_json.cart.length > 0) {
+        const count = shop_cart_json.cart.reduce((total, product) => total + product.quantity, 0);
+        return count;
+    } else {
+        return 0;
+    }
+}
+
 export function update_cartCount() {
-    let count = get_cart_len();
+    let allQuantity = get_quantity_of_products();
     // Update cartCount on nav button
-    document.querySelector('#cartCount').textContent = count;
+    document.querySelector('#cartCount').textContent = allQuantity;
     // if cartCount class exits also add value
     let classElm = document.querySelectorAll('.cartCount');
     if (classElm.length > 0) {
         // elements exist
         classElm.forEach(function (elm) {
-            elm.textContent = count;
+            elm.textContent = allQuantity;
         });
     }
 
@@ -60,10 +72,16 @@ export function add_product(id, size, quantity) {
         const shop_cart = localStorage.getItem('shop_cart');
         var shop_cart_json = JSON.parse(shop_cart);
         if (product != null) {
-            // add size and quantity 
-            product.size = size;
-            product.quantity = quantity;
-            shop_cart_json["cart"].push(product);
+            // check if product already exists and stack them on one product place (same id, size)
+            if (shop_cart_json.cart.some(product => product.id === id && product.size === size)) {
+                let productPos = shop_cart_json.cart.findIndex(product => product.id === id && product.size === size);
+                shop_cart_json["cart"][productPos].quantity += quantity;
+            } else {
+                // add size and quantity 
+                product.size = size;
+                product.quantity = quantity;
+                shop_cart_json["cart"].push(product);
+            }
         }
 
         const jsonData = JSON.stringify(shop_cart_json);

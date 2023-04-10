@@ -9,11 +9,16 @@ async function calc_price(method = "product") {
 
     if (cartData && cartData.cart && cartData.cart.length > 0) {
         const itemPrices = await Promise.all(cartData.cart.map(product => get_prop_of_id("price", product.id)));
-        price = itemPrices.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+        const itemQuantities = cartData.cart.map(product => product.quantity);
+
+        price = itemPrices.reduce((accumulator, currentValue, index) => {
+            const itemPrice = currentValue * itemQuantities[index];
+            return accumulator + itemPrice;
+        }, 0);
+
         if (method === "total") {
             return price + shippingPrice;
         } else if (method === "product") {
-            
             return price;
         }
     } else {
@@ -38,7 +43,7 @@ export async function render_priceList(method = "cart") {
                     <h6 class="my-0">${(await get_prop_of_id("name", product.id))}</h6>
                     <small class="text-muted">${product.quantity}x | Größe ${product.size}</small>
                 </div>
-                <span class="text-muted">$${(await get_prop_of_id("price", product.id)).toFixed(2)}</span>
+                <span class="text-muted">$${(await get_prop_of_id("price", product.id)*product.quantity).toFixed(2)}</span>
             `;
             productsDiv.appendChild(productLi);
         }
