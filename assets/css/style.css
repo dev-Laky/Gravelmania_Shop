@@ -1562,21 +1562,11 @@ section {
   color: #fff;
 }
 
-.contact .php-email-form {
-  width: 100%;
-  height: 105%;
-  border-top: 3px solid #dd6300;
-  border-bottom: 3px solid #dd6300;
-  padding: 30px;
-  background: #fff;
-  box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12);
-}
-
-.contact .php-email-form .form-group {
+.feedback-checkout .form-group {
   padding-bottom: 8px;
 }
 
-.contact .php-email-form .validate {
+.feedback-checkout .validate {
   display: none;
   color: red;
   margin: 0 0 15px 0;
@@ -1584,7 +1574,7 @@ section {
   font-size: 13px;
 }
 
-.contact .php-email-form .error-message {
+.feedback-checkout .error-message {
   display: none;
   color: #fff;
   background: #ed3c0d;
@@ -1594,11 +1584,11 @@ section {
   border-radius: 20px;
 }
 
-.contact .php-email-form .error-message br+br {
+.feedback-checkout .error-message br+br {
   margin-top: 25px;
 }
 
-.contact .php-email-form .sent-message {
+.feedback-checkout .sent-message {
   display: none;
   color: #fff;
   background: #18d26e;
@@ -1608,7 +1598,7 @@ section {
   border-radius: 20px;
 }
 
-.contact .php-email-form .loading {
+.feedback-checkout .loading {
   display: none;
   background: #fff;
   text-align: center;
@@ -1616,7 +1606,7 @@ section {
   border-radius: 20px;
 }
 
-.contact .php-email-form .loading:before {
+.feedback-checkout .loading:before {
   content: "";
   display: inline-block;
   border-radius: 50%;
@@ -1629,36 +1619,36 @@ section {
   animation: animate-loading 1s linear infinite;
 }
 
-.contact .php-email-form .form-group {
+.feedback-checkout .form-group {
   margin-bottom: 20px;
 }
 
-.contact .php-email-form label {
+.feedback-checkout label {
   padding-bottom: 8px;
 }
 
-.contact .php-email-form input,
-.contact .php-email-form textarea {
+.feedback-checkout input,
+.feedback-checkout textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
   border-radius: 4px;
 }
 
-.contact .php-email-form input:focus,
-.contact .php-email-form textarea:focus {
+.feedback-checkout input:focus,
+.feedback-checkout textarea:focus {
   border-color: #000000;
 }
 
-.contact .php-email-form input {
+.feedback-checkout input {
   height: 44px;
 }
 
-.contact .php-email-form textarea {
+.feedback-checkout textarea {
   padding: 10px 12px;
 }
 
-.contact .php-email-form button[type=submit] {
+.feedback-checkout button[type=submit] {
   background: #000000;
   border: 0;
   padding: 12px 34px;
@@ -1667,7 +1657,7 @@ section {
   border-radius: 50px;
 }
 
-.contact .php-email-form button[type=submit]:hover {
+.feedback-checkout button[type=submit]:hover {
   background: #FF6E31;
 }
 

@@ -1,6 +1,6 @@
 import { get_prop_of_id } from "/assets/js/cart/cart.js";
 
-async function calc_price(method = "product") {
+export async function calc_price(method = "product") {
     let price = 0;
     // define shipping price
     const shippingPrice = 5;
