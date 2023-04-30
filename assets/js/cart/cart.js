@@ -1,7 +1,8 @@
 import { calc_price } from "../cart_checkout/price_list.js";
 
 function valid_id(id) {
-    return fetch('./../assets/data/shop_products.json')
+    const path = `${window.location.pathname}/../assets/data/shop_products.json`;
+    return fetch(path)
         .then(response => response.json())
         .then(shop_products => {
             const product = shop_products.products.find(product => product.id === id);
