@@ -4,7 +4,12 @@ function valid_id(id) {
     const currentLocation = window.location.href; // Get the current page's URL
     const pathArr = currentLocation.split('/'); // Split the URL into an array of path segments
     const basePathIndex = pathArr.indexOf('Gravelmania_Shop'); // Find the index of the base path
-    const basePath = pathArr.slice(basePathIndex).join('/'); // Construct the base path by joining the remaining path segments
+
+    let basePath = '';
+    if (basePathIndex !== -1) {
+        basePath = pathArr.slice(basePathIndex).join('/'); // Construct the base path by joining the remaining path segments
+    }
+
     const jsonPath = `${basePath}/assets/data/shop_products.json`; // Construct the path to the JSON file
 
     return fetch(jsonPath)
@@ -18,6 +23,7 @@ function valid_id(id) {
             }
         });
 }
+
 
 // can also be used to delete all products out of the cart
 export function create_localstorage() {
