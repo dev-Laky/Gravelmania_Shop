@@ -55,7 +55,7 @@ import { add_product, get_cart_len } from "../cart/cart.js";
     // save current product to cart, go to checkout
     document.querySelector('.formular-btn').addEventListener('click', (event) => {
         // pre_save_data(event);
-        window.location.href = '../../../cart';
+        window.location.href = '../../cart';
     });
 
     // avoid letter input to form-control --> quantity
