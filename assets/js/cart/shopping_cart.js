@@ -37,10 +37,10 @@ import { render_priceList, render_price_total, render_price_product } from "../c
               <h6 class="mb-0">${Math.abs(item.quantity)} Mal</h6>
             </div>
             <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 offset-lg-1 mobile-shopping-cart-text">
-              <h6 class="mb-0">${(await get_prop_of_id("price", item.id)*Math.abs(item.quantity)).toFixed(2)} €</h6>
+              <h6 class="mb-0">${(await get_prop_of_id("price", item.id) * Math.abs(item.quantity)).toFixed(2)} €</h6>
             </div>
             <div class="col-12 col-sm-1 col-md-1 col-lg-1 col-xl-1 text-end">
-              <button id="${item.id}" class="btn del-cart-btn"><i class="bi bi-trash text-danger"></i></button>
+              <button id="${item.id}-${item.size}" class="btn del-cart-btn"><i class="bi bi-trash text-danger"></i></button>
             </div>
             <hr class="my-4">
           `;
@@ -60,9 +60,10 @@ import { render_priceList, render_price_total, render_price_product } from "../c
             button.addEventListener("click", function (event) {
                 // avoid <i> Element (trash icon) to be clicked 
                 event.stopPropagation();
-                // Get the id of the clicked button
-                let buttonId = event.currentTarget.id;
-                del_product(parseInt(buttonId));
+
+                const [itemId, itemSize] = event.currentTarget.id.split('-');
+                del_product(parseInt(itemId), itemSize);
+
                 // re-render
                 render()
                 // get "new"-rendered del-cart-btns again
@@ -70,6 +71,7 @@ import { render_priceList, render_price_total, render_price_product } from "../c
             });
         });
     }
+
 
     async function render() {
         // render products

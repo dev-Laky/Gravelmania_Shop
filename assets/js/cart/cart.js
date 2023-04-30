@@ -111,12 +111,12 @@ export function add_product(id, size, quantity) {
     });
 }
 
-export function del_product(id) {
+export function del_product(id, size) {
     const shop_cart = localStorage.getItem('shop_cart');
     var shop_cart_obj = JSON.parse(shop_cart);
 
     for (let i in shop_cart_obj.cart) {
-        if (shop_cart_obj.cart[i].id === id) {
+        if (shop_cart_obj.cart[i].id === id && shop_cart_obj.cart[i].size === size) {
             shop_cart_obj.cart.splice(i, 1);
 
             const jsonData = JSON.stringify(shop_cart_obj);
@@ -126,7 +126,7 @@ export function del_product(id) {
             return;
         }
     }
-    throw new Error(`Product with id: ${id} not found in cart.`);
+    throw new Error(`Product with id: ${id} and size: ${size} not found in cart.`);
 }
 
 // gets a property of a product via id --> secured query (no manipulation by localstorage)
