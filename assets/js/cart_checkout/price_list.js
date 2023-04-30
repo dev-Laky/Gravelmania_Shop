@@ -9,7 +9,7 @@ export async function calc_price(method = "product") {
 
     if (cartData && cartData.cart && cartData.cart.length > 0) {
         const itemPrices = await Promise.all(cartData.cart.map(product => get_prop_of_id("price", product.id)));
-        const itemQuantities = cartData.cart.map(product => product.quantity);
+        const itemQuantities = cartData.cart.map(product => Math.abs(product.quantity));
 
         price = itemPrices.reduce((accumulator, currentValue, index) => {
             const itemPrice = currentValue * itemQuantities[index];
@@ -41,9 +41,9 @@ export async function render_priceList(method = "cart") {
             productLi.innerHTML = `
                 <div>
                     <h6 class="my-0">${(await get_prop_of_id("name", product.id))}</h6>
-                    <small class="text-muted">${product.quantity}x | Größe ${product.size}</small>
+                    <small class="text-muted">${Math.abs(product.quantity)}x | Größe ${product.size}</small>
                 </div>
-                <span class="text-muted">${(await get_prop_of_id("price", product.id)*product.quantity).toFixed(2)} €</span>
+                <span class="text-muted">${(await get_prop_of_id("price", product.id)*Math.abs(product.quantity)).toFixed(2)} €</span>
             `;
             productsDiv.appendChild(productLi);
         }

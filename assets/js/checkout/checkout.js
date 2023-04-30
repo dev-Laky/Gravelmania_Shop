@@ -34,6 +34,10 @@ import { generate_cart_html, create_localstorage } from "/assets/js/cart/cart.js
             } else {
                 // Prevent the form from submitting
                 event.preventDefault();
+
+                // Disable the button until next page reload (see top of code)
+                checkout_button.disabled = true;
+
                 document.querySelector('.loading').classList.add('d-block');
 
                 // Retrieve the values of the form inputs
@@ -69,9 +73,6 @@ import { generate_cart_html, create_localstorage } from "/assets/js/cart/cart.js
 
                         // reset cart
                         create_localstorage();
-
-                        // Disable the button until next page reload (see top of code)
-                        checkout_button.disabled = true;
 
                     }, function (error) {
                         console.log(error);

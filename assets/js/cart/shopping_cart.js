@@ -34,10 +34,10 @@ import { render_priceList, render_price_total, render_price_product } from "/ass
               <h6 class="text-black mb-0">${await get_prop_of_id("name", item.id)}</h6>
             </div>
             <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 offset-lg-1 mobile-shopping-cart-text">
-              <h6 class="mb-0">${item.quantity} Mal</h6>
+              <h6 class="mb-0">${Math.abs(item.quantity)} Mal</h6>
             </div>
             <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 offset-lg-1 mobile-shopping-cart-text">
-              <h6 class="mb-0">${(await get_prop_of_id("price", item.id)*item.quantity).toFixed(2)} €</h6>
+              <h6 class="mb-0">${(await get_prop_of_id("price", item.id)*Math.abs(item.quantity)).toFixed(2)} €</h6>
             </div>
             <div class="col-12 col-sm-1 col-md-1 col-lg-1 col-xl-1 text-end">
               <button id="${item.id}" class="btn del-cart-btn"><i class="bi bi-trash text-danger"></i></button>

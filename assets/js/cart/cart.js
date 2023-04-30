@@ -45,7 +45,7 @@ function get_quantity_of_products() {
     const shop_cart = localStorage.getItem('shop_cart');
     var shop_cart_json = JSON.parse(shop_cart);
     if (shop_cart_json.cart.length > 0) {
-        const count = shop_cart_json.cart.reduce((total, product) => total + product.quantity, 0);
+        const count = shop_cart_json.cart.reduce((total, product) => total + Math.abs(product.quantity), 0);
         return count;
     } else {
         return 0;
@@ -82,7 +82,7 @@ export function add_product(id, size, quantity) {
             } else {
                 // add size and quantity 
                 product.size = size;
-                product.quantity = quantity;
+                product.quantity = Math.abs(quantity);
                 shop_cart_json["cart"].push(product);
             }
         }
@@ -163,8 +163,8 @@ export async function generate_cart_html() {
             item_name,
             item.size,
             item_price.toFixed(2) + ' €',
-            item.quantity,
-            item.quantity * item_price + ' €'
+            Math.abs(item.quantity),
+            Math.abs(item.quantity) * item_price + ' €'
         ];
         const tr = document.createElement('tr');
         tr.style.borderBottom = '1px solid #dddddd';
