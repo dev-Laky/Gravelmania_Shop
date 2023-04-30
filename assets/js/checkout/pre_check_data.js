@@ -1,4 +1,4 @@
-import { add_product, get_cart_len } from "/assets/js/cart/cart.js";
+import { add_product, get_cart_len } from "../cart/cart.js";
 
 (function () {
     'use strict'

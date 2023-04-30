@@ -1,5 +1,5 @@
-import { render_priceList, render_price_total, render_price_product } from "/assets/js/cart_checkout/price_list.js"
-import { generate_cart_html, create_localstorage } from "/assets/js/cart/cart.js";
+import { render_priceList, render_price_total, render_price_product } from "../cart_checkout/price_list.js"
+import { generate_cart_html, create_localstorage } from "../cart/cart.js";
 
 (function () {
     "use strict";

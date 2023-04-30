@@ -1,5 +1,5 @@
-import { del_product, get_prop_of_id, get_cart_len } from "/assets/js/cart/cart.js";
-import { render_priceList, render_price_total, render_price_product } from "/assets/js/cart_checkout/price_list.js"
+import { del_product, get_prop_of_id, get_cart_len } from "../cart/cart.js";
+import { render_priceList, render_price_total, render_price_product } from "../cart_checkout/price_list.js"
 
 (function () {
     "use strict";

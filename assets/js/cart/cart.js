@@ -1,4 +1,4 @@
-import { calc_price } from "/assets/js/cart_checkout/price_list.js";
+import { calc_price } from "../cart_checkout/price_list.js";
 
 function valid_id(id) {
     return fetch('/assets/data/shop_products.json')

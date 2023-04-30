@@ -1,5 +1,4 @@
 import { update_cartCount } from "./cart/cart.js";
-// TEST
 
 (function () {
   "use strict";

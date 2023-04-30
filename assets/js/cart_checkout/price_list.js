@@ -1,4 +1,4 @@
-import { get_prop_of_id } from "/assets/js/cart/cart.js";
+import { get_prop_of_id } from "../cart/cart.js";
 
 export async function calc_price(method = "product") {
     let price = 0;
