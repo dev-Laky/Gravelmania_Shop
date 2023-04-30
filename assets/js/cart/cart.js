@@ -4,29 +4,20 @@ function valid_id(id) {
     const currentLocation = window.location.href; // Get the current page's URL
     const pathArr = currentLocation.split('/'); // Split the URL into an array of path segments
     const basePathIndex = pathArr.indexOf('Gravelmania_Shop'); // Find the index of the base path
-    let basePath;
-
-    if (basePathIndex !== -1) {
-        // Construct the base path by joining the remaining path segments
-        basePath = pathArr.slice(basePathIndex).join('/');
-    } else {
-        // Use the current path as the base path
-        basePath = pathArr.slice(-1)[0];
-    }
-
+    const basePath = pathArr.slice(basePathIndex).join('/'); // Construct the base path by joining the remaining path segments
     const jsonPath = `${basePath}/assets/data/shop_products.json`; // Construct the path to the JSON file
-
+  
     return fetch(jsonPath)
-        .then(response => response.json())
-        .then(shop_products => {
-            const product = shop_products.products.find(product => product.id === id);
-            if (product) {
-                return product;
-            } else {
-                throw new Error(`Id: ${id} doesn't exist.`);
-            }
-        });
-}
+      .then(response => response.json())
+      .then(shop_products => {
+        const product = shop_products.products.find(product => product.id === id);
+        if (product) {
+          return product;
+        } else {
+          throw new Error(`Id: ${id} doesn't exist.`);
+        }
+      });
+  }
 
 
 
