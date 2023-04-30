@@ -1,4 +1,4 @@
-import { update_cartCount } from "/assets/js/cart/cart.js";
+import { update_cartCount } from "./cart/cart.js";
 
 (function () {
   "use strict";
