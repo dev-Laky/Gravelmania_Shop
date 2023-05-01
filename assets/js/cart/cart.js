@@ -13,7 +13,6 @@ function valid_id(id) {
     }
     path.push('assets', 'data', 'shop_products.json');
     const relativePath = path.join('/');
-    console.log(relativePath);
 
     return fetch(relativePath)
         .then(response => response.json())
