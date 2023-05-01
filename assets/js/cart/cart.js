@@ -1,20 +1,23 @@
 import { calc_price } from "../cart_checkout/price_list.js";
 
-function valid_id(id) {
-    // find .json path  
+function get_subpath(subPath, filePath) {
     const url = new URL(window.location.href);
     const path = url.pathname.split('/');
-    // sub path --> Github (Gravelmania_Shop/)
-    if (path.includes("Gravelmania_Shop")) {
+
+    if (path.includes(subPath)) {
         path.splice(2);
-    // no sub path (/)
     } else {
         path.splice(1);
     }
-    path.push('assets', 'data', 'shop_products.json');
-    const relativePath = path.join('/');
 
-    return fetch(relativePath)
+    path.push(...filePath.split('/'));
+
+    return path.join('/');
+}
+
+function valid_id(id) {
+
+    return fetch(get_subpath("Gravelmania_Shop", "assets/data/shop_products.json"))
         .then(response => response.json())
         .then(shop_products => {
             const product = shop_products.products.find(product => product.id === id);
