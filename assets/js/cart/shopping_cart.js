@@ -27,7 +27,7 @@ import { render_priceList, render_price_total, render_price_product } from "../c
                 productDiv.classList.add('row', 'd-flex', 'justify-content-between', 'align-items-center');
                 productDiv.innerHTML = `
             <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp" class="img-fluid rounded-3" alt="${item.name}">
+              <img src="https://picsum.photos/640/800" class="img-fluid rounded-3" alt="${item.name}">
             </div>
             <div class="col-4 col-sm-3 col-md-3 col-lg-3 col-xl-3 mobile-shopping-cart-text">
               <h6 class="text-muted">Größe ${item.size}</h6>
