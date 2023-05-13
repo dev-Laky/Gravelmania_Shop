@@ -1,5 +1,6 @@
 import { calc_price } from "../cart_checkout/price_list.js";
 
+// function to check wether there is a subpath like ("Gravelmania_Shop/" --> github) before root content or not 
 function get_subpath(subPath, filePath) {
     const url = new URL(window.location.href);
     const path = url.pathname.split('/');
@@ -80,8 +81,6 @@ export function update_cartCount() {
             elm.textContent = allQuantity;
         });
     }
-
-
 }
 
 export function add_product(id, size, quantity) {
@@ -131,6 +130,45 @@ export function del_product(id, size) {
 // gets a property of a product via id --> secured query (no manipulation by localstorage)
 export async function get_prop_of_id(propertyName, id) {
     return (await valid_id(id))[propertyName];
+}
+
+export async function check_for_validity() {
+    check_for_localstorage();
+
+    const shop_cart = JSON.parse(localStorage.getItem("shop_cart"));
+
+    if (!shop_cart || !shop_cart.cart || shop_cart.cart.length === 0) {
+        throw new Error("Cart is empty or invalid");
+    }
+
+    const validProductIds = new Set(await Promise.all(
+        shop_cart.cart.map((item) => valid_id(item.id).then(result => {
+            if (typeof result === 'object' && result.id === item.id) {
+                return item.id;
+            }
+            return null;
+        }))
+    ));
+
+    const validSizes = new Set(["S", "M", "L"]);
+
+    const invalidItems = shop_cart.cart.filter((item) => {
+        const { id, size, quantity } = item;
+
+        return (
+            !id ||
+            !size ||
+            !quantity ||
+            !validProductIds.has(id) ||
+            !validSizes.has(size)
+        );
+    });
+
+    if (invalidItems.length > 0) {
+        throw new Error(`Invalid items: ${JSON.stringify(invalidItems)}`);
+    }
+
+    return true;
 }
 
 export async function generate_cart_html() {

@@ -1,5 +1,7 @@
 import { del_product, get_prop_of_id, get_cart_len } from "../cart/cart.js";
 import { render_priceList, render_price_total, render_price_product } from "../cart_checkout/price_list.js"
+import { escape } from '../security/security.js';
+String.prototype.escape = escape;
 
 (function () {
     "use strict";
@@ -30,7 +32,7 @@ import { render_priceList, render_price_total, render_price_product } from "../c
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp" class="img-fluid rounded-3" alt="${item.name}">
             </div>
             <div class="col-4 col-sm-3 col-md-3 col-lg-3 col-xl-3 mobile-shopping-cart-text">
-              <h6 class="text-muted">Größe ${item.size}</h6>
+              <h6 class="text-muted">Größe ${item.size.escape()}</h6>
               <h6 class="text-black mb-0">${await get_prop_of_id("name", item.id)}</h6>
             </div>
             <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 offset-lg-1 mobile-shopping-cart-text">

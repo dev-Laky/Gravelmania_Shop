@@ -1,5 +1,5 @@
 import { render_priceList, render_price_total, render_price_product } from "../cart_checkout/price_list.js"
-import { generate_cart_html, create_localstorage } from "../cart/cart.js";
+import { generate_cart_html, create_localstorage, check_for_validity } from "../cart/cart.js";
 
 (function () {
     "use strict";
@@ -63,23 +63,31 @@ import { generate_cart_html, create_localstorage } from "../cart/cart.js";
                 };
 
                 // Log the values of the form inputs to the console
-                console.log(templateParams);
+                 // console.log(templateParams);
 
-                emailjs.send('service_087y4mu', 'template_wlzgfne', templateParams)
-                    .then(function (response) {
-                        console.log('SUCCESS!');
+                async function handleFormSubmission() {
+                    try {
+                        await check_for_validity();
+
+                        await emailjs.send('service_087y4mu', 'template_wlzgfne', templateParams);
+
+                        console.log('The order request has been successfully sent.');
                         document.querySelector('.loading').classList.remove('d-block');
                         document.querySelector('.sent-message').classList.add('d-block');
 
                         // reset cart
                         create_localstorage();
-
-                    }, function (error) {
-                        console.log(error);
+                    } catch (error) {
                         document.querySelector('.loading').classList.remove('d-block');
                         document.querySelector('.error-message').innerHTML = "Etwas ist schiefgelaufen... (Hat jemand einen Schlauch?)";
                         document.querySelector('.error-message').classList.add('d-block');
-                    });
+                        throw error;
+                    }
+                }
+
+                // Call handleFormSubmission directly, which will trigger the validation and submission process
+                handleFormSubmission();
+
             }
 
             form.classList.add('was-validated');
