@@ -1,5 +1,7 @@
 import { del_product, get_prop_of_id, get_cart_len } from "../cart/cart.js";
 import { render_priceList, render_price_total, render_price_product } from "../cart_checkout/price_list.js"
+import { escape } from '../security/security.js';
+String.prototype.escape = escape;
 
 (function () {
     "use strict";

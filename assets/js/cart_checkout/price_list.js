@@ -1,4 +1,6 @@
 import { get_prop_of_id } from "../cart/cart.js";
+import { escape } from '../security/security.js';
+String.prototype.escape = escape;
 
 export async function calc_price(method = "product") {
     let price = 0;
@@ -41,7 +43,7 @@ export async function render_priceList(method = "cart") {
             productLi.innerHTML = `
                 <div>
                     <h6 class="my-0">${(await get_prop_of_id("name", product.id))}</h6>
-                    <small class="text-muted">${Math.abs(product.quantity)}x | Größe ${product.size} | Farbe ${product.colorName}</small>
+                    <small class="text-muted">${Math.abs(product.quantity)}x | Größe ${product.size.escape()} | Farbe ${product.colorName.escape()}}</small>
                 </div>
                 <span class="text-muted">${(await get_prop_of_id("price", product.id)*Math.abs(product.quantity)).toFixed(2)} €</span>
             `;
