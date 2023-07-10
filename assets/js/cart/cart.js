@@ -152,16 +152,18 @@ export async function check_for_validity() {
     ));
 
     const validSizes = new Set(["S", "M", "L"]);
+    const validColors = new Set(["Purple", "Blue", "Cyan"]);
 
     const invalidItems = shop_cart.cart.filter((item) => {
-        const { id, size, quantity } = item;
+        const { id, size, colorName, quantity } = item;
 
         return (
             !id ||
             !size ||
             !quantity ||
             !validProductIds.has(id) ||
-            !validSizes.has(size)
+            !validSizes.has(size) ||
+            !validColors.has(colorName)
         );
     });
 
