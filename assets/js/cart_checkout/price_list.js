@@ -41,7 +41,7 @@ export async function render_priceList(method = "cart") {
             productLi.innerHTML = `
                 <div>
                     <h6 class="my-0">${(await get_prop_of_id("name", product.id))}</h6>
-                    <small class="text-muted">${Math.abs(product.quantity)}x | Größe ${product.size}</small>
+                    <small class="text-muted">${Math.abs(product.quantity)}x | Größe ${product.size} | Farbe ${product.colorName}</small>
                 </div>
                 <span class="text-muted">${(await get_prop_of_id("price", product.id)*Math.abs(product.quantity)).toFixed(2)} €</span>
             `;

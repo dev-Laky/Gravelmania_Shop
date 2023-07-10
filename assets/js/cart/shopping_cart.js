@@ -29,18 +29,29 @@ import { render_priceList, render_price_total, render_price_product } from "../c
             <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
               <img src="https://picsum.photos/640/800" class="img-fluid rounded-3" alt="${item.name}">
             </div>
-            <div class="col-4 col-sm-3 col-md-3 col-lg-3 col-xl-3 mobile-shopping-cart-text">
-              <h6 class="text-muted">Größe ${item.size}</h6>
-              <h6 class="text-black mb-0">${await get_prop_of_id("name", item.id)}</h6>
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 mobile-shopping-cart-text">
+                <div class="row mt-2 mt-lg-1">
+                    <div class="col-12">
+                        <h6 class="text-black mb-0">${await get_prop_of_id("name", item.id)}</h6>
+                    </div>
+                </div>
+                <div class="row mt-3 mt-xl-2 mt-md-2 mt-sm-2">
+                    <div class="col-6 col-md-12 col-sm-12 col-xl-6">
+                        <h6 class="text-muted">${item.colorName}</h6>
+                    </div>
+                    <div class="col-6 col-md-12 col-sm-12 col-xl-6">
+                        <h6 class="text-muted">Größe ${item.size}</h6>
+                    </div>
+                </div>
             </div>
-            <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 offset-lg-1 mobile-shopping-cart-text">
+            <div class="col-6 col-sm-3 col-md-3 col-lg-2 col-xl-2 offset-lg-1 mobile-shopping-cart-text">
               <h6 class="mb-0">${Math.abs(item.quantity)} Mal</h6>
             </div>
-            <div class="col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 offset-lg-1 mobile-shopping-cart-text">
+            <div class="col-6 col-sm-3 col-md-3 col-lg-2 col-xl-2 offset-lg-1 mobile-shopping-cart-text">
               <h6 class="mb-0">${(await get_prop_of_id("price", item.id) * Math.abs(item.quantity)).toFixed(2)} €</h6>
             </div>
             <div class="col-12 col-sm-1 col-md-1 col-lg-1 col-xl-1 text-end">
-              <button id="${item.id}-${item.size}" class="btn del-cart-btn"><i class="bi bi-trash text-danger"></i></button>
+              <button id="${item.id}-${item.size}-${item.colorName}" class="btn del-cart-btn"><i class="bi bi-trash text-danger"></i></button>
             </div>
             <hr class="my-4">
           `;
@@ -61,8 +72,8 @@ import { render_priceList, render_price_total, render_price_product } from "../c
                 // avoid <i> Element (trash icon) to be clicked 
                 event.stopPropagation();
 
-                const [itemId, itemSize] = event.currentTarget.id.split('-');
-                del_product(parseInt(itemId), itemSize);
+                const [itemId, itemSize, colorName] = event.currentTarget.id.split('-');
+                del_product(parseInt(itemId), itemSize, colorName);
 
                 // re-render
                 render()

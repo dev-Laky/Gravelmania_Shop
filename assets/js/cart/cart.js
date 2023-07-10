@@ -84,7 +84,7 @@ export function update_cartCount() {
 
 }
 
-export function add_product(id, size, quantity) {
+export function add_product(id, size, colorName, quantity) {
     valid_id(id).then(product => {
         check_for_localstorage();
 
@@ -92,12 +92,13 @@ export function add_product(id, size, quantity) {
         var shop_cart_json = JSON.parse(shop_cart);
         if (product != null) {
             // check if product already exists and stack them on one product place (same id, size)
-            if (shop_cart_json.cart.some(product => product.id === id && product.size === size)) {
-                let productPos = shop_cart_json.cart.findIndex(product => product.id === id && product.size === size);
+            if (shop_cart_json.cart.some(product => product.id === id && product.size === size && product.colorName === colorName)) {
+                let productPos = shop_cart_json.cart.findIndex(product => product.id === id && product.size === size && product.colorName === colorName);
                 shop_cart_json["cart"][productPos].quantity += quantity;
             } else {
-                // add size and quantity 
+                // add size, colorName and quantity 
                 product.size = size;
+                product.colorName = colorName;
                 product.quantity = Math.abs(quantity);
                 shop_cart_json["cart"].push(product);
             }
@@ -110,12 +111,12 @@ export function add_product(id, size, quantity) {
     });
 }
 
-export function del_product(id, size) {
+export function del_product(id, size, colorName) {
     const shop_cart = localStorage.getItem('shop_cart');
     var shop_cart_obj = JSON.parse(shop_cart);
 
     for (let i in shop_cart_obj.cart) {
-        if (shop_cart_obj.cart[i].id === id && shop_cart_obj.cart[i].size === size) {
+        if (shop_cart_obj.cart[i].id === id && shop_cart_obj.cart[i].size === size && shop_cart_obj.cart[i].colorName === colorName) {
             shop_cart_obj.cart.splice(i, 1);
 
             const jsonData = JSON.stringify(shop_cart_obj);
@@ -125,7 +126,7 @@ export function del_product(id, size) {
             return;
         }
     }
-    throw new Error(`Product with id: ${id} and size: ${size} not found in cart.`);
+    throw new Error(`Product with id: ${id}, size: ${size} and colorName: ${colorName} not found in cart.`);
 }
 
 // gets a property of a product via id --> secured query (no manipulation by localstorage)
@@ -157,7 +158,7 @@ export async function generate_cart_html() {
     headerRow.style.color = '#ffffff';
     headerRow.style.textAlign = 'left';
 
-    const headers = ['ID', 'Name', 'Groesse', 'Preis', 'Anzahl', 'Teilpreis'];
+    const headers = ['ID', 'Name', 'Groesse', 'Farbe', 'Preis', 'Anzahl', 'Teilpreis'];
     for (const header of headers) {
         const th = document.createElement('th');
         th.style.padding = '12px 15px';
@@ -178,6 +179,7 @@ export async function generate_cart_html() {
             item.id,
             item_name,
             item.size,
+            item.colorName,
             item_price.toFixed(2) + ' €',
             Math.abs(item.quantity),
             Math.abs(item.quantity) * item_price + ' €'
