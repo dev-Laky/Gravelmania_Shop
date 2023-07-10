@@ -29,7 +29,7 @@ String.prototype.escape = escape;
                 productDiv.classList.add('row', 'd-flex', 'justify-content-between', 'align-items-center');
                 productDiv.innerHTML = `
             <div class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-              <img src="https://picsum.photos/640/800" class="img-fluid rounded-3" alt="${item.name}">
+              <img src="https://picsum.photos/640/800" class="img-fluid rounded-3" alt="${item.name.escape()}">
             </div>
             <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 mobile-shopping-cart-text">
                 <div class="row mt-2 mt-lg-1">
@@ -39,10 +39,10 @@ String.prototype.escape = escape;
                 </div>
                 <div class="row mt-3 mt-xl-2 mt-md-2 mt-sm-2">
                     <div class="col-6 col-md-12 col-sm-12 col-xl-6">
-                        <h6 class="text-muted">${item.colorName}</h6>
+                        <h6 class="text-muted">${item.colorName.escape()}</h6>
                     </div>
                     <div class="col-6 col-md-12 col-sm-12 col-xl-6">
-                        <h6 class="text-muted">Größe ${item.size}</h6>
+                        <h6 class="text-muted">Größe ${item.size.escape()}</h6>
                     </div>
                 </div>
             </div>
